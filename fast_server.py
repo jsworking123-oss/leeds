@@ -25,9 +25,11 @@ app.add_middleware(
 async def classify(request: Request):
     try:
         # Accept any JSON body
-        # data = await request.json()
-        # response = requests.post(f"{main_model_server_base_url}/classify", json=data)
-        # return response.json()
+        data = await request.json()
+        response = requests.post(f"{main_model_server_base_url}/classify", json=data)
+        json_response = response.json()
+        json_response["reasoning"] ="" 
+        return json_response
 
         # testing perpose hard coded data
         # {
@@ -37,13 +39,13 @@ async def classify(request: Request):
         #     "reasoning": "The email clearly identifies a healthcare clinic in Sri Lanka (80 staff), aligning with Test1's target industry. The request for procurement and reporting tools indicates a need for the ERP system. While not explicitly stating a budget or pain points, the size of the clinic and location are positive indicators. The sender's title (Admin) suggests a decision-maker is involved.  A 'Warm' classification is appropriate as the fit is strong, but further qualification is needed to assess budget and specific requirements.",
         #     "error": null
         # }
-        return {
-            "success": True,
-            "probability": 75,
-            "classification": "Warm",
-            "reasoning": "The email clearly identifies a healthcare clinic in Sri Lanka (80 staff), aligning with Test1's target industry. The request for procurement and reporting tools indicates a need for the ERP system. While not explicitly stating a budget or pain points, the size of the clinic and location are positive indicators. The sender's title (Admin) suggests a decision-maker is involved.  A 'Warm' classification is appropriate as the fit is strong, but further qualification is needed to assess budget and specific requirements.",
-            "error": None
-        }
+        # return {
+        #     "success": True,
+        #     "probability": 75,
+        #     "classification": "Warm",
+        #     "reasoning": "The email clearly identifies a healthcare clinic in Sri Lanka (80 staff), aligning with Test1's target industry. The request for procurement and reporting tools indicates a need for the ERP system. While not explicitly stating a budget or pain points, the size of the clinic and location are positive indicators. The sender's title (Admin) suggests a decision-maker is involved.  A 'Warm' classification is appropriate as the fit is strong, but further qualification is needed to assess budget and specific requirements.",
+        #     "error": None
+        # }
     except Exception as e:
         print("error ------", e)
         return {
